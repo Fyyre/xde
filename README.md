@@ -3,9 +3,11 @@
 
 eXtended disassembler engine for **x86, x86-64, VEX, EVEX, and XOP**.
 
-This is a successor to z0mbie's XDE 1.02 (original sources in `xde102`).
-It keeps the original split/merge model (`xde_disasm` / `xde_asm`) and
-source/destination object sets, and extends them to 64-bit GPRs plus
+This is a successor to z0mbie's XDE 1.02 (original sources in xde102)
+
+Being a fan of XDE (and z0mbie) - I wanted it to work with new instruction sets.
+
+It keeps the original split/merge model (`xde_disasm` / `xde_asm`) source/destination object sets, and extends them to 64-bit GPRs plus
 AVX/AVX-512/XOP encodings.
 
 ## What it does
@@ -38,11 +40,10 @@ From a Developer Command Prompt, or just:
 build.bat
 ```
 
-That locates `vcvars64.bat`, compiles with `cl.exe`, and runs `build\xde_test.exe`.
+It automatically locates vcvars64.bat, compiles with cl.exe, and runs build\xde_test.exe
+If you rather use Visual Studio IDE open msvc\xde.sln (retarget the toolset if prompted).
 
-Open `msvc\xde.sln` if you prefer the IDE (retarget the toolset if prompted).
-
-Regenerate tables after editing `tools/gen_tables.py`:
+Regenerating tables after editing tools/gen_tables.py:
 
 ```
 python tools\gen_tables.py
@@ -63,10 +64,10 @@ int m = xde_asm(out, &diza);
 `n == 0` means the encoding is truncated, invalid in this mode, or undefined.
 
 `diza.enc` is one of `XDE_ENC_LEGACY`, `XDE_ENC_VEX2`, `XDE_ENC_VEX3`,
-`XDE_ENC_EVEX`, `XDE_ENC_XOP`, `XDE_ENC_REX2`.
+`XDE_ENC_EVEX`, `XDE_ENC_XOP`, `XDE_ENC_REX2`
 
 `diza.map` is the opcode map (`XDE_MAP_LEGACY`, `XDE_MAP_0F`, `XDE_MAP_0F38`,
-`XDE_MAP_0F3A`, EVEX maps 4-6, VEX map 7, XOP maps 8/9/A).
+`XDE_MAP_0F3A`, EVEX maps 4-6, VEX map 7, XOP maps 8/9/A)
 
 Low 32 bits of `flag` / `src_set` / `dst_set` stay compatible with XDE 1.02
 for EAX-EDI. RAX-RDI width bits, R8-R15, RIP, and encoding-class flags live
